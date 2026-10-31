@@ -46,3 +46,16 @@ def db(pg_engine):
     session.close()
     trans.rollback()
     conn.close()
+
+
+@pytest.fixture
+def client(db):
+    """API client whose requests share the rolled-back test transaction."""
+    from fastapi.testclient import TestClient
+
+    from app.core.db import get_db
+    from app.main import app
+
+    app.dependency_overrides[get_db] = lambda: db
+    yield TestClient(app)
+    app.dependency_overrides.clear()

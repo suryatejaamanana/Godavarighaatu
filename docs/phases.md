@@ -7,8 +7,8 @@ No phase starts without the owner's approval.
 |---|---|---|
 | 1 | Requirements, architecture, stack, DB plan, structure | Approved |
 | 2 | Project init and dev environment | Complete |
-| 3 | DB models, relationships, Alembic migrations | Complete, awaiting owner review |
-| 4 | Backend APIs and business logic | Not started |
+| 3 | DB models, relationships, Alembic migrations | Complete |
+| 4 | Backend APIs and business logic | Catalog + inventory APIs done, awaiting owner review (orders/coupons/combos APIs come in Phases 9-10) |
 | 5 | Admin authentication and authorization | Not started |
 | 6 | Admin dashboard and product management (incl. image upload) | Not started |
 | 7 | Customer homepage and product browsing | Not started |
