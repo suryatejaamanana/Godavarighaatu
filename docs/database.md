@@ -32,3 +32,20 @@ Payment statuses: pending, paid, failed, refunded.
 
 Indexes: foreign keys; orders(order_status, created_at); products(category_id, status);
 trigram index on product name for search; unique indexes listed above.
+
+## Implemented (Phase 3)
+
+Models: `backend/app/models/` (`catalog`, `people`, `orders`, `offers`, `content`, plus `base`, `enums`, `types`).
+Migration: `backend/alembic/versions/0001_initial_schema.py` (19 tables).
+
+Choices made while implementing:
+- Enums are stored as `VARCHAR` + `CHECK` (not native PG enums), so adding a status later is a simple migration.
+- Constraint/index names follow a naming convention (`ix_`, `uq_`, `ck_`, `fk_`, `pk_`) for stable migrations.
+- `gen_random_uuid()` is the server default for ids; the migration enables `pg_trgm` for product search.
+- Extra product columns beyond the Phase 1 sketch: `short_description`, `badges`, `is_new_arrival`, `sold_count`
+  (popularity sorting), `*_te` Telugu variants of every text field.
+- Orders carry delivery-address snapshot columns (`ship_*`) so later customer edits never change past orders.
+- `order_items.product_id` / `variant_id` become NULL if a product is deleted; name, weight and unit price remain.
+- `reviews.product_id` is nullable so general (homepage) testimonials are possible.
+- `combo_offer_items` holds either a product or a category (exactly one), covering fixed bundles and "any N" combos.
+- No separate site-wide `offers` table yet. The poster's "10% off all pickles" will be added in Phase 10 (new migration).

@@ -6,8 +6,8 @@ No phase starts without the owner's approval.
 | Phase | Scope | Status |
 |---|---|---|
 | 1 | Requirements, architecture, stack, DB plan, structure | Approved |
-| 2 | Project init and dev environment | Complete, awaiting owner review |
-| 3 | DB models, relationships, Alembic migrations | Not started |
+| 2 | Project init and dev environment | Complete |
+| 3 | DB models, relationships, Alembic migrations | Complete, awaiting owner review |
 | 4 | Backend APIs and business logic | Not started |
 | 5 | Admin authentication and authorization | Not started |
 | 6 | Admin dashboard and product management (incl. image upload) | Not started |
