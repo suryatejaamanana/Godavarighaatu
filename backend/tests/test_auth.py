@@ -283,12 +283,18 @@ def test_state_changing_requests_need_an_allowed_origin(client, make_client, mak
 
 # ---------------- configuration ----------------
 def test_insecure_production_config_refuses_to_start():
-    good = {"app_env": "production", "jwt_secret": "s" * 40, "cookie_secure": True}
+    good = {
+        "app_env": "production",
+        "jwt_secret": "s" * 40,
+        "cookie_secure": True,
+        "storage_backend": "supabase",
+    }
     Settings(**good).validate_for_runtime()
     for override in (
         {"jwt_secret": "short"},
         {"cookie_secure": False},
         {"cors_origins": ["*"]},
+        {"storage_backend": "local"},
     ):
         with pytest.raises(RuntimeError):
             Settings(**{**good, **override}).validate_for_runtime()

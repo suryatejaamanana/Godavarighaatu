@@ -14,6 +14,14 @@ class Settings(BaseSettings):
     supabase_service_role_key: str = ""
     supabase_storage_bucket: str = "product-images"
 
+    # --- image storage ---
+    storage_backend: Literal["local", "supabase"] = (
+        "local"  # local: dev only, files under media_root
+    )
+    media_root: str = "media"
+    public_media_url: str = "http://localhost:8000/media"  # how browsers reach local files
+    max_upload_mb: int = 10
+
     # --- admin authentication ---
     jwt_secret: str = ""
     access_token_minutes: int = 15
@@ -41,6 +49,8 @@ class Settings(BaseSettings):
             problems.append("COOKIE_SECURE must be true")
         if self.cookie_samesite == "none" and not self.cookie_secure:
             problems.append("SameSite=None requires COOKIE_SECURE=true")
+        if self.storage_backend == "local":
+            problems.append("STORAGE_BACKEND must be 'supabase' (local disk is for development)")
         if "*" in self.cors_origins:
             problems.append("CORS_ORIGINS must not contain '*'")
         if problems:

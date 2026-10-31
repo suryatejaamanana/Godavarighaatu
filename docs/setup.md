@@ -58,3 +58,36 @@ curl -b jar localhost:8000/api/v1/admin/auth/me
 Production needs `APP_ENV=production`, `COOKIE_SECURE=true`, a 32+ character `JWT_SECRET` and explicit
 `CORS_ORIGINS`; the app refuses to start otherwise. If the frontend and API are on different registrable domains
 (not just different subdomains), `COOKIE_SAMESITE=none` is required; decide this at deployment (Phase 13).
+
+## Image storage
+Development: `STORAGE_BACKEND=local` (default) stores files under `backend/media/` (git-ignored) and the API serves them at
+`/media`. Production: create a **public** Supabase Storage bucket, then set `STORAGE_BACKEND=supabase`, `SUPABASE_URL`,
+`SUPABASE_SERVICE_ROLE_KEY` and `SUPABASE_STORAGE_BUCKET`. The service-role key must only ever be set on the backend.
+
+## Admin UI
+Start the backend (`uv run uvicorn app.main:app --reload`) and the frontend (`npm run dev`), then open
+http://localhost:3000/admin/login. The login page talks to the API at `NEXT_PUBLIC_API_BASE_URL`
+(default `http://localhost:8000/api/v1`); the allowed origin must match `CORS_ORIGINS`.
+
+## Frontend tests
+```
+cd frontend
+npm test                 # unit tests (API client: refresh, errors, uploads)
+npm run typecheck && npm run lint && npm run build
+```
+
+## Browser tests (Playwright, real backend and database)
+Use a **throwaway** database. Rate limiting is turned off for this run because the suite signs in many times
+(the limiter itself is covered by backend tests).
+```
+cd backend
+export DATABASE_URL=postgresql+psycopg://USER@localhost:5432/e2e_db JWT_SECRET=<32+ chars> RATE_LIMIT_ENABLED=false
+uv run alembic upgrade head
+uv run python -m scripts.seed_e2e_admins            # dev only: creates e2e-manager@ and e2e-staff@ admins
+uv run uvicorn app.main:app --port 8000 &
+
+cd ../frontend
+npx playwright install chromium                     # once
+npm run test:e2e                                    # starts the frontend dev server itself
+```
+The suite leaves its test products in that database; it uses unique names, so it can be re-run.

@@ -33,6 +33,11 @@ MATRIX = [
     ("GET", f"{A}/inventory/low-stock", None, STAFF),
     ("PUT", f"{A}/variants/{ID}/inventory", {"quantity": 1}, STAFF),
     ("POST", f"{A}/variants/{ID}/inventory/adjustments", {"delta": 1}, STAFF),
+    ("POST", f"{A}/products/{ID}/images", None, MANAGER),
+    ("PUT", f"{A}/products/{ID}/images/order", {"ids": [ID]}, MANAGER),
+    ("PATCH", f"{A}/images/{ID}", {"alt_text": "x"}, MANAGER),
+    ("DELETE", f"{A}/images/{ID}", None, MANAGER),
+    ("GET", f"{A}/dashboard/summary", None, STAFF),
     ("GET", f"{A}/auth/me", None, STAFF),
     ("GET", f"{A}/users", None, SUPER),
     ("POST", f"{A}/users", {"email": "n@example.com", "password": PASSWORD}, SUPER),
@@ -61,6 +66,7 @@ def test_every_admin_route_requires_authentication(client):
             continue
         concrete = path.replace("{category_id}", ID).replace("{product_id}", ID)
         concrete = concrete.replace("{variant_id}", ID).replace("{admin_id}", ID)
+        concrete = concrete.replace("{image_id}", ID)
         for method in methods:
             r = client.request(method.upper(), concrete, json={})
             assert r.status_code == 401, (method, path, r.status_code)
@@ -74,7 +80,7 @@ def test_matrix_covers_every_admin_route():
         if not path.startswith(f"{A}/") or path in PUBLIC_AUTH:
             continue
         concrete = path
-        for name in ("category_id", "product_id", "variant_id", "admin_id"):
+        for name in ("category_id", "product_id", "variant_id", "admin_id", "image_id"):
             concrete = concrete.replace("{" + name + "}", ID)
         for method in methods:
             assert (method.upper(), concrete) in documented, (

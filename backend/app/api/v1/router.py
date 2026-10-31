@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from app.api.v1 import categories, health, products
 from app.api.v1.admin import auth as admin_auth
 from app.api.v1.admin import categories as admin_categories
+from app.api.v1.admin import images as admin_images
 from app.api.v1.admin import products as admin_products
 from app.api.v1.admin import users as admin_users
 
@@ -16,4 +17,6 @@ admin_router.include_router(admin_auth.router)
 admin_router.include_router(admin_users.router)
 admin_router.include_router(admin_categories.router)
 admin_router.include_router(admin_products.router)
+admin_router.include_router(admin_images.router)
+admin_router.include_router(admin_images.dashboard_router)
 api_router.include_router(admin_router)

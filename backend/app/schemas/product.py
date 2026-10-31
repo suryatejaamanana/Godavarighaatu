@@ -126,13 +126,48 @@ class VariantPublic(BaseModel):
 
 # ---------- products ----------
 class ProductImageOut(BaseModel):
+    """`url` is the 1920px version; card (600px) and thumb (200px) follow the storage naming convention."""
+
     model_config = ConfigDict(from_attributes=True)
 
     id: uuid.UUID
+    product_id: uuid.UUID | None = None
     url: str
     alt_text: str | None
     sort_order: int
     is_primary: bool
+
+    @computed_field
+    @property
+    def card_url(self) -> str:
+        return self.url.removesuffix("detail.webp") + "card.webp"
+
+    @computed_field
+    @property
+    def thumb_url(self) -> str:
+        return self.url.removesuffix("detail.webp") + "thumb.webp"
+
+
+class ImageUpdate(PatchModel):
+    non_nullable: ClassVar[set[str]] = {"sort_order", "is_primary"}
+
+    alt_text: str | None = Field(default=None, max_length=200)
+    sort_order: int | None = Field(default=None, ge=0)
+    is_primary: bool | None = None
+
+
+class ImageOrder(BaseModel):
+    ids: list[uuid.UUID] = Field(min_length=1, max_length=20)
+
+
+class DashboardSummary(BaseModel):
+    products_total: int
+    products_active: int
+    products_inactive: int
+    products_archived: int
+    categories_total: int
+    variants_out_of_stock: int
+    variants_low_stock: int
 
 
 class ProductFields(BaseModel):

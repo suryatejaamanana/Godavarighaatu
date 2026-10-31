@@ -1,4 +1,4 @@
-# API (Phases 4-5: catalog, inventory, admin auth)
+# API (Phases 4-6: catalog, inventory, admin auth, images)
 
 Base path `/api/v1`. Interactive docs: `/docs` when the server runs. Errors are `{"detail": "..."}`
 (404 not found, 409 conflict, 422 validation/business rule, 503 unavailable).
@@ -66,4 +66,19 @@ Errors: 401 not authenticated or invalid token, 403 wrong role or origin, 429 ra
 | POST | `/admin/variants/{id}/inventory/adjustments` | `{delta}`; row-locked; never below 0 or below reserved |
 | GET | `/admin/inventory/low-stock` | available <= threshold |
 
-Not yet implemented: image upload (Phase 6), cart/checkout/orders (Phase 9), coupons and combos (Phase 10).
+Not yet implemented: cart/checkout/orders (Phase 9), coupons and combos (Phase 10).
+
+## Images and dashboard (Phase 6)
+| Method | Path | Role | Notes |
+|---|---|---|---|
+| POST | `/admin/products/{id}/images` | manager | multipart `file` (+ optional `alt_text`). JPEG, PNG or WebP, max `MAX_UPLOAD_MB` (10), up to 10 per product. First image becomes primary |
+| PATCH | `/admin/images/{id}` | manager | `alt_text`, `sort_order`, `is_primary: true` (the previous primary is unset) |
+| PUT | `/admin/products/{id}/images/order` | manager | `{ids: [...]}`, must list every image of the product |
+| DELETE | `/admin/images/{id}` | manager | removes files from storage; promotes another image to primary if needed |
+| GET | `/admin/dashboard/summary` | staff | product counts by status, categories, out-of-stock and low-stock variants |
+
+Uploads are validated by decoding the file (the filename and Content-Type are ignored), SVG is refused, and each
+image is re-encoded to WebP at three sizes: `detail` (max 1920px, never upscaled), `card` (600px), `thumb` (200px).
+Re-encoding also strips EXIF metadata such as GPS. Image responses carry `url` (detail), `card_url` and `thumb_url`.
+Storage is `local` (development, served from `/media`) or `supabase` (public bucket via the Storage REST API, using the
+service-role key which stays on the server). Production refuses to start with `STORAGE_BACKEND=local`.

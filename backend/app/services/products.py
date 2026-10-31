@@ -11,6 +11,7 @@ from app.repositories import products as repo
 from app.repositories.products import ProductSort
 from app.schemas.common import slugify
 from app.schemas.product import (
+    DashboardSummary,
     InventoryAdjust,
     InventorySet,
     LowStockItem,
@@ -228,3 +229,16 @@ def low_stock(db: Session) -> list[LowStockItem]:
         )
         for v, p, i in repo.low_stock(db)
     ]
+
+
+def dashboard_summary(db: Session) -> DashboardSummary:
+    by_status = repo.count_by_status(db)
+    return DashboardSummary(
+        products_total=sum(by_status.values()),
+        products_active=by_status.get(ProductStatus.ACTIVE, 0),
+        products_inactive=by_status.get(ProductStatus.INACTIVE, 0),
+        products_archived=by_status.get(ProductStatus.ARCHIVED, 0),
+        categories_total=len(category_repo.list_all(db)),
+        variants_out_of_stock=repo.count_out_of_stock(db),
+        variants_low_stock=len(repo.low_stock(db)),
+    )

@@ -18,3 +18,7 @@ Approved by the project owner at the end of Phase 1.
 | D12 | Admin auth: JWT access (15 min) + rotating refresh (7 days) in httpOnly cookies, backed by an `admin_sessions` table. | Owner requested JWT access/refresh tokens. Server-side sessions give real logout and replay detection. Tokens are not returned in JSON. |
 | D13 | Roles: staff = read + stock; manager = catalog writes; super_admin = also manages admins. | Proposed by the assistant in Phase 5; adjust if the business wants different permissions. |
 | D14 | First admin is created via CLI (`python -m app.cli create-admin`), never via a public endpoint or seed password. | |
+| D15 | Product photos: JPEG/PNG/WebP only, re-encoded to WebP (1920/600/200px). SVG is not accepted for product photos. | SVG can contain scripts. SVG brand assets (logo) will be added as static files in `frontend/public/brand/` by the developer, not through uploads. |
+| D16 | Image storage is pluggable (`local` for development, `supabase` for production). | Supabase path is unit-tested with a mocked HTTP transport only; it has not run against a real bucket. |
+| D17 | Admin UI: client-side rendered pages that call the API with cookies; the API remains the only security boundary. | The frontend cannot read the API's httpOnly cookies, so the guard is a `/admin/auth/me` check. Hiding buttons by role is a convenience only. |
+| D18 | Admin dashboard shows catalog and stock statistics only. | Order and revenue figures need Phase 9; no placeholder numbers are shown. |

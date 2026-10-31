@@ -150,3 +150,23 @@ def low_stock(db: Session) -> list[tuple[ProductVariant, Product, Inventory]]:
         .order_by(Inventory.quantity - Inventory.reserved, Product.name)
     )
     return [tuple(r) for r in db.execute(stmt)]
+
+
+def count_by_status(db: Session) -> dict[ProductStatus, int]:
+    rows = db.execute(select(Product.status, func.count()).group_by(Product.status))
+    return {ProductStatus(status): n for status, n in rows}
+
+
+def count_out_of_stock(db: Session) -> int:
+    stmt = (
+        select(func.count())
+        .select_from(ProductVariant)
+        .join(Product, Product.id == ProductVariant.product_id)
+        .join(Inventory, Inventory.variant_id == ProductVariant.id)
+        .where(
+            Product.status == ProductStatus.ACTIVE,
+            ProductVariant.is_active,
+            Inventory.quantity - Inventory.reserved <= 0,
+        )
+    )
+    return db.scalar(stmt) or 0
