@@ -1,0 +1,61 @@
+{
+  "cli_version": "0.12.2",
+  "checkpoint_id": "01M688ACXBMD747XBJAZRZX812",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "README.md",
+    "backend/app/api/deps.py",
+    "backend/app/api/v1/admin/__init__.py",
+    "backend/app/api/v1/admin/categories.py",
+    "backend/app/api/v1/admin/products.py",
+    "backend/app/api/v1/categories.py",
+    "backend/app/api/v1/products.py",
+    "backend/app/api/v1/router.py",
+    "backend/app/core/db.py",
+    "backend/app/core/errors.py",
+    "backend/app/main.py",
+    "backend/app/repositories/categories.py",
+    "backend/app/repositories/products.py",
+    "backend/app/schemas/category.py",
+    "backend/app/schemas/common.py",
+    "backend/app/schemas/product.py",
+    "backend/app/services/categories.py",
+    "backend/app/services/products.py",
+    "backend/tests/conftest.py",
+    "backend/tests/test_catalog_api.py",
+    "docs/api.md",
+    "docs/phases.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 24,
+    "cache_creation_tokens": 33169,
+    "cache_read_tokens": 1338900,
+    "output_tokens": 31065,
+    "api_call_count": 11
+  },
+  "redaction": {
+    "replacements": 2,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 2,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
