@@ -1,0 +1,13 @@
+<pasted_content id="dcb0">
+Phase 5 looks good. Let's move to Phase 6: admin dashboard and product management.
+
+Start by building the admin login page and dashboard using our existing backend APIs. Include product and category management, product variants, inventory management and image uploads.
+
+The dashboard should be clean, responsive and easy to use. Follow the Godavari Ghaatu branding.
+
+Connect the frontend to the actual backend APIs instead of using mock data. Make sure authentication works with the httpOnly cookies.
+
+Implement this step by step, test the functionality and fix any issues.
+</pasted_content id="dcb0">
+
+ Once finished, show me what you implemented and the test results.
