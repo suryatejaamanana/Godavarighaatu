@@ -1,0 +1,11 @@
+<pasted_content id="dcb0">
+Phase 4 looks good. Let's move to Phase 5: admin authentication and authorization.
+
+Implement secure admin login, logout, JWT access and refresh tokens, password hashing and role-based access control.
+
+Support super_admin, manager and staff roles. Protect all existing admin APIs so they cannot be accessed without valid authentication and proper permissions.
+
+Add tests for login, logout, token validation, refresh tokens, unauthorized access and role permissions.
+
+Follow our existing architecture and update the documentation. Run all existing tests and fix any issues
+</pasted_content id="dcb0">
