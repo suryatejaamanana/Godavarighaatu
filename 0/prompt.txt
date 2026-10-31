@@ -1,0 +1,768 @@
+website name Godavarighaatu
+
+---
+
+<pasted_content id="dcb0">
+# PROJECT: Andhra Homemade Pickles – Custom E-commerce Website
+
+Act as a Senior Full-Stack Developer, Software Architect, UI/UX Designer and E-commerce Specialist.
+
+I want to develop a complete, professional e-commerce website for a homemade Andhra pickles business.
+
+This is a custom-built application. Do not use Shopify, WordPress, Wix or any ready-made e-commerce platform.
+
+IMPORTANT: We will develop this project step by step. Do not implement everything at once. Follow the development phases and wait for my approval before moving to the next phase.
+
+# 1. REFERENCE WEBSITES
+
+Study these websites for design and functionality inspiration:
+
+1. https://patnamlopalleruchulu.in/
+2. https://palleturipachallu.com/
+
+Analyze their:
+- Homepage design
+- Navigation
+- Product categories
+- Product listing
+- Product details
+- Cart
+- Offers
+- Checkout
+- Mobile responsiveness
+
+Use them only as references. Create a better, modern and premium design. Do not copy their source code or branding.
+
+# 2. BRAND IDENTITY
+
+I have provided a promotional poster as a visual reference.
+
+Image location:
+`/mnt/data/WhatsApp Image 2026-10-26 at 12.17.14(1).jpeg`
+
+Understand the visual identity from this poster.
+
+Brand characteristics:
+- Traditional Andhra homemade pickles.
+- Authentic village-style taste.
+- Homemade recipes.
+- Traditional and premium food products.
+
+Suggested colour palette:
+- Deep Red: #A51F18
+- Orange: #F15A24
+- Golden Yellow: #FFC928
+- Warm Cream: #FFF8ED
+- Dark Brown: #35251E
+
+Design expectations:
+- Premium and modern appearance.
+- Traditional Andhra identity.
+- Attractive food photography.
+- Professional typography.
+- Telugu and English typography where appropriate.
+- Beautiful product cards.
+- Smooth animations.
+- Responsive layouts.
+- Consistent design system.
+
+Do not invent a final brand name or logo. Keep these configurable until I provide the actual brand assets.
+
+# 3. TECHNOLOGY STACK
+
+Use the following technologies:
+
+Frontend:
+- Next.js
+- TypeScript
+- App Router
+- Tailwind CSS
+- Shadcn UI
+- Lucide Icons
+
+Backend:
+- Python
+- FastAPI
+- Pydantic
+- SQLAlchemy 2.x
+- Alembic
+
+Database:
+- Supabase PostgreSQL
+
+Image storage:
+- Supabase Storage.
+
+Authentication:
+- Secure admin login.
+- Password hashing.
+- JWT-based authentication.
+- Role-based authorization.
+
+Architecture:
+- Separate frontend and backend.
+- REST APIs.
+- Modular backend architecture.
+- Reusable frontend components.
+- Environment-based configuration.
+
+Do not change the technology stack without explaining the reason and getting my approval.
+
+# 4. CUSTOMER WEBSITE
+
+Create a customer-facing e-commerce website.
+
+## Homepage
+
+Include:
+
+1. Announcement bar.
+2. Brand logo.
+3. Navigation menu.
+4. Search bar.
+5. Shopping cart.
+6. Attractive hero banner.
+7. Shop by category.
+8. Best-selling products.
+9. New arrivals.
+10. Special offers.
+11. Combo offers.
+12. Why choose our pickles?
+13. About our brand.
+14. Customer testimonials.
+15. FAQ section.
+16. WhatsApp contact button.
+17. Footer.
+
+## Product Categories
+
+Initially support:
+
+- Veg Pickles
+- Non-Veg Pickles
+- Gongura Pickles
+- Mango Pickles
+- Chicken Pickles
+- Mutton Pickles
+- Prawn Pickles
+- Fish Pickles
+- Special Pickles
+
+Categories must be manageable through the admin dashboard.
+
+## Product Listing
+
+Each product card must display:
+
+- Product image.
+- Product name.
+- Short description.
+- Price.
+- Discounted price.
+- Discount percentage.
+- Availability.
+- Product badges.
+- View Details.
+- Add to Cart.
+
+Include:
+- Search.
+- Category filtering.
+- Price sorting.
+- Popularity sorting.
+- Pagination.
+
+## Product Details
+
+Every product must support:
+
+- Multiple images.
+- Product name.
+- Description.
+- Ingredients.
+- Preparation details.
+- Storage instructions.
+- Shelf life.
+- Available quantities.
+- Price for each quantity.
+- Stock availability.
+- Add to Cart.
+- Buy Now.
+- Related products.
+
+Available quantities:
+
+- 250g
+- 500g
+- 1kg
+
+Prices must be independently configurable for each product variant.
+
+## Shopping Cart
+
+Implement:
+
+- Add products.
+- Remove products.
+- Increase/decrease quantities.
+- Change product variants.
+- Calculate subtotal.
+- Apply coupons.
+- Calculate discounts.
+- Show total amount.
+- Persist cart after page refresh.
+
+# 5. CUSTOMER CHECKOUT AND ORDER MANAGEMENT
+
+IMPORTANT: Payment gateway and shipping provider have NOT been decided yet.
+
+Do not integrate Razorpay, Shiprocket or any other third-party payment or shipping services.
+
+Do not implement real online payment processing at this stage.
+
+Do not implement automatic courier booking or shipping calculations.
+
+However, build the application architecture so these integrations can be added later without redesigning the application.
+
+## Checkout
+
+Customers should be able to place orders without creating an account.
+
+Collect:
+
+- Full name.
+- Mobile number.
+- Email.
+- House/Flat number.
+- Street.
+- Village/City.
+- District.
+- State.
+- PIN code.
+- Delivery instructions.
+
+Checkout workflow:
+
+1. Customer selects products.
+2. Customer adds products to cart.
+3. Customer enters delivery details.
+4. Customer reviews the order.
+5. Customer places the order.
+6. Order is saved in the database.
+7. Payment status is initially Pending.
+8. Admin can view the order.
+
+Do not falsely mark orders as paid.
+
+## Order Management
+
+Generate unique order numbers.
+
+Support order statuses:
+
+- Pending
+- Confirmed
+- Processing
+- Packed
+- Shipped
+- Out for Delivery
+- Delivered
+- Cancelled
+- Returned
+
+Support payment statuses:
+
+- Pending
+- Paid
+- Failed
+- Refunded
+
+Admin must be able to update order statuses manually.
+
+Customers should be able to check their orders using an order number and verified mobile number.
+
+Keep order items, selected weight and purchase-time price as historical records.
+
+# 6. ADMIN DASHBOARD
+
+Create a separate admin panel.
+
+Admin login:
+
+`/admin/login`
+
+Admin dashboard:
+
+`/admin/dashboard`
+
+Protect all admin routes and APIs.
+
+## Dashboard Overview
+
+Display:
+
+- Total orders.
+- Today's orders.
+- Total revenue from confirmed paid orders.
+- Pending orders.
+- Processing orders.
+- Shipped orders.
+- Delivered orders.
+- Cancelled orders.
+- Best-selling products.
+- Recent orders.
+
+## Product Management
+
+Admin should be able to:
+
+- Add products.
+- Edit products.
+- Archive products.
+- Upload multiple images.
+- Manage descriptions.
+- Manage ingredients.
+- Manage categories.
+- Manage product variants.
+- Set 250g, 500g and 1kg prices.
+- Manage stock.
+- Mark products as featured.
+- Mark products as best sellers.
+- Activate/deactivate products.
+
+## Order Management
+
+Admin should be able to:
+
+- View all orders.
+- Search orders.
+- Filter by status.
+- View customer information.
+- View order details.
+- View delivery addresses.
+- View payment status.
+- Update order status.
+- Add manual tracking information.
+- Cancel orders.
+- Print/download invoices.
+
+## Offers Management
+
+Admin should be able to:
+
+- Create offers.
+- Edit offers.
+- Delete offers.
+- Activate/deactivate offers.
+- Set start and end dates.
+- Create coupon codes.
+- Set discount percentages.
+- Set fixed discounts.
+- Set minimum purchase amounts.
+- Set usage limits.
+
+## Combo Offers
+
+Support:
+
+- Any 3 Pickles Combo.
+- Andhra Special Combo.
+- Veg Pickles Combo.
+- Non-Veg Pickles Combo.
+- Family Pack Combo.
+
+Admin should be able to select products, set combo prices and manage combo availability.
+
+## Customer Management
+
+Admin can:
+
+- View customers.
+- Search customers.
+- View customer details.
+- View customer order history.
+
+## Website Content Management
+
+Admin should be able to manage:
+
+- Homepage banners.
+- Promotional messages.
+- Featured products.
+- Best sellers.
+- Brand information.
+- Contact details.
+- WhatsApp number.
+
+Normal business content should not require source-code changes.
+
+# 7. IMPORTANT WEBSITE PAGES
+
+Create:
+
+- About Us.
+- Contact Us.
+- Privacy Policy.
+- Terms and Conditions.
+- Shipping Policy.
+- Cancellation Policy.
+- Refund and Return Policy.
+- FAQ.
+
+Use configurable placeholder content until I provide the actual business information.
+
+# 8. WHATSAPP
+
+Add a floating WhatsApp button on customer-facing pages.
+
+Features:
+
+- General enquiry.
+- Product enquiry.
+- Order enquiry.
+
+Make the WhatsApp number configurable.
+
+# 9. DATABASE DESIGN
+
+Design a normalized relational database.
+
+Consider these entities:
+
+- admins
+- customers
+- addresses
+- categories
+- products
+- product_images
+- product_variants
+- inventory
+- carts
+- cart_items
+- orders
+- order_items
+- payments
+- shipments
+- coupons
+- combo_offers
+- combo_offer_items
+- reviews
+- banners
+- website_settings
+- order_status_history
+
+Use proper:
+- Primary keys.
+- Foreign keys.
+- Unique constraints.
+- Indexes.
+- Relationships.
+- Timestamps.
+
+Use Decimal/Numeric for monetary values, never floating-point values.
+
+Use Alembic for database migrations.
+
+Payment and shipping tables must be designed with future integrations in mind, without integrating external providers now.
+
+# 10. SECURITY
+
+Implement:
+
+- Secure admin authentication.
+- Password hashing.
+- Role-based access control.
+- Protected admin APIs.
+- Input validation.
+- SQL injection protection.
+- CORS configuration.
+- Rate limiting for sensitive endpoints.
+- Secure session/token handling.
+- Environment variables.
+- Proper error handling.
+- Protection against unauthorized order access.
+
+Never expose secrets in frontend code.
+
+Do not store card details.
+
+# 11. SEO AND PERFORMANCE
+
+Implement:
+
+- SEO-friendly URLs.
+- Metadata.
+- Product metadata.
+- Open Graph metadata.
+- Sitemap.
+- Robots.txt.
+- Optimized images.
+- Lazy loading.
+- Loading states.
+- Error states.
+- Empty states.
+
+# 12. RESPONSIVE DESIGN
+
+The website must work on:
+
+- Desktop.
+- Laptop.
+- Tablet.
+- Android.
+- iPhone.
+
+Mobile experience is a major priority.
+
+Pay particular attention to product browsing, cart, checkout and admin usability on mobile.
+
+# 13. TESTING
+
+Write backend and frontend tests where appropriate.
+
+Test:
+
+- Admin authentication.
+- Product APIs.
+- Product variants.
+- Cart calculations.
+- Coupon validation.
+- Order creation.
+- Order status updates.
+- Admin authorization.
+- Customer order lookup.
+- Inventory management.
+
+Test the complete customer journey:
+
+1. Customer visits the homepage.
+2. Browses products.
+3. Opens a product.
+4. Selects 250g, 500g or 1kg.
+5. Adds it to cart.
+6. Enters checkout details.
+7. Places an order without online payment.
+8. Receives an order confirmation.
+9. Admin logs in.
+10. Admin views the order.
+11. Admin updates order status.
+
+# 14. PROJECT STRUCTURE
+
+Use a clean and maintainable structure similar to:
+
+pickle-ecommerce/
+    frontend/
+        app/
+        components/
+        hooks/
+        lib/
+        services/
+        types/
+        public/
+
+    backend/
+        app/
+            api/
+            core/
+            models/
+            schemas/
+            repositories/
+            services/
+            integrations/
+            main.py
+        alembic/
+        tests/
+
+    docs/
+    .gitignore
+    README.md
+    .env.example
+
+You may improve this structure when architecturally justified.
+
+# 15. DEVELOPMENT APPROACH – VERY IMPORTANT
+
+We will build this application step by step.
+
+Follow these phases:
+
+Phase 1: Requirement analysis, architecture, technology confirmation, database planning and project structure.
+
+Phase 2: Project initialization and development environment setup.
+
+Phase 3: Database models, relationships and Alembic migrations.
+
+Phase 4: Backend APIs and business logic.
+
+Phase 5: Admin authentication and authorization.
+
+Phase 6: Admin dashboard and product management.
+
+Phase 7: Customer homepage and product browsing.
+
+Phase 8: Product details and shopping cart.
+
+Phase 9: Checkout and order management.
+
+Phase 10: Offers, coupons and combo management.
+
+Phase 11: WhatsApp and website content pages.
+
+Phase 12: Testing, security and performance.
+
+Phase 13: Deployment preparation.
+
+Payment and shipping integrations will be separate future projects after I make those decisions.
+
+## RULES YOU MUST FOLLOW
+
+1. First inspect the current project directory.
+2. Do not start writing application code immediately.
+3. First understand the requirements and reference websites.
+4. Present the system architecture.
+5. Explain the database design.
+6. Present the folder structure.
+7. Explain the implementation phases.
+8. Identify any missing business information.
+9. Wait for my approval before implementation.
+
+For every phase:
+
+- Explain what you are going to implement.
+- Implement only the approved phase.
+- Run tests.
+- Fix errors.
+- Explain the files created or modified.
+- Explain how to run and verify the implementation.
+- Update project documentation.
+- Report any incomplete work honestly.
+
+Do not implement multiple phases without my approval.
+
+Do not create fake functionality or non-working buttons.
+
+Do not permanently use mock data for business operations.
+
+Use seed data only for development.
+
+Do not assume actual product prices, brand name, ingredients, contact numbers or business policies.
+
+Use clearly marked placeholders wherever information is missing.
+
+If you need a decision from me, ask one question at a time.
+
+# FINAL INSTRUCTION
+
+Start with PHASE 1 ONLY.
+
+Inspect the supplied requirements and reference websites, then present:
+
+1. Requirement analysis.
+2. Proposed architecture.
+3. Technology stack confirmation.
+4. Database design proposal.
+5. Project folder structure.
+6. Phase-wise development plan.
+7. External dependencies and credentials needed in the future.
+8. Risks and important design decisions.
+
+Do not create files or write application code until I approve Phase 1.
+
+We will work together to complete this project incrementally.
+</pasted_content id="dcb0">
+
+---
+
+[Image #2]
+
+---
+
+further i will give full HD or SVG images for products also
+
+---
+
+<pasted_content id="dcb0">
+For Question 1, I choose browser-only guest cart storage using localStorage with Zustand persistence.
+
+Requirements:
+- Cart should persist after page refresh.
+- Customers should be able to add products without login.
+- No need for server-side cart storage or carts/cart_items database tables for now.
+- Recalculate and validate all product prices, discounts and quantities on the backend during checkout.
+
+Regarding product images:
+- I will provide Full HD product photographs and SVG brand assets later.
+- Design the application to support uploading and managing these images through the admin dashboard.
+- Use placeholders until I provide the actual images.
+
+Regarding the poster:
+- Use Godavari Ghaatu (గోదావరి ఘాటు) as the initial brand name.
+- Use the tagline and visual identity identified from the poster.
+- Keep all branding information configurable.
+
+One additional requirement:
+- For customer order lookup, initially use order number and mobile number matching. Do not implement OTP or SMS integration yet. We can decide on verification later.
+
+I approve the Phase 1 architecture and planning, subject to documenting these decisions.
+
+Now proceed with Phase 1 documentation only. Do not start Phase 2 until I review and approve it.
+</pasted_content id="dcb0">
+
+---
+
+<pasted_content id="dcb0">
+Phase 1 documentation is approved.
+
+Confirm Python 3.13 and bilingual English/Telugu product and banner fields.
+
+Now proceed with Phase 2 only: project initialization and environment setup.
+
+Follow the approved architecture. Keep changes minimal, run verification checks, update documentation and report all files changed.
+
+Do not start Phase 3 without my approval.
+</pasted_content id="dcb0">
+
+---
+
+<pasted_content id="dcb0">
+Phase 2 is done, and nothing is committed. git status shows only untracked files plus the edited README.md.
+
+Verification
+
+- Backend: 2 pytest tests pass. They check the health endpoint and the CORS origin. ruff is clean, and uvicorn served GET /api/v1/health → {"status":"ok"}. alembic heads loads without error.
+- Frontend: npm run lint, tsc --noEmit and npm run build all pass.
+- Not tested: npm run dev and the page in a browser, and any Supabase connection, because there are no credentials yet.
+
+What I set up
+
+- Backend (backend/):
+  - Python 3.13 (the uv-managed 3.13.18) with FastAPI, SQLAlchemy 2, Alembic, Pydantic settings, Argon2, PyJWT, slowapi and the Supabase client.
+  - The layered folders from the architecture: api/v1, core, models, schemas, repositories, services and integrations/{payments,shipping}.
+  - Health route, CORS, and settings loaded from the environment.
+  - Alembic wired to DATABASE_URL, with no migrations yet.
+- Frontend (frontend/):
+  - Next.js 16 (App Router), TypeScript, Tailwind v4, shadcn/ui, lucide, Zustand, React Hook Form, Zod and TanStack Query.
+  - Brand palette tokens, a Telugu font, and a placeholder home page showing the name and tagline.
+  - lib/config.ts with placeholder brand defaults, and a small services/api.ts helper.
+- Root: .gitignore, .env.example, README.md, docs/setup.md, and docs/decisions.md and docs/phases.md updated.
+
+Files changed
+
+- Modified: README.md, docs/decisions.md (added D11 and confirmed Python 3.13), docs/phases.md.
+- New:
+  - Root: .gitignore, .env.example
+  - Docs: docs/setup.md
+  - Backend: everything under backend/
+  - Frontend: everything under frontend/ except node_modules and .next, which are ignored
+
+Things to know
+
+- uv: I installed it with pip install --user because it wasn't on the machine. It also downloaded Python 3.13.
+- Fonts: next build fetched Google Fonts. It worked here, but an offline build would fail.
+- Frontend instructions file: frontend/AGENTS.md came from the Next.js starter and says this Next.js version has breaking changes. I left it in place.
+- Unused packages: the Supabase, slowapi and PyJWT packages are installed but not used yet.
+- Not done: shadcn components beyond button, and the fonts for the Telugu display style. I'll add those when the pages need them.
+
+To run it, follow docs/setup.md. I'll wait for your approval before starting Phase 3 (database models and Alembic migrations).
+</pasted_content id="dcb0">
