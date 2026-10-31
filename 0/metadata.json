@@ -1,0 +1,60 @@
+{
+  "cli_version": "0.12.2",
+  "checkpoint_id": "01M687KAGH1DB7GYE4E12VM41N",
+  "session_id": "e41ffdb3-d545-4f22-9623-b6ccb2e26f45",
+  "strategy": "manual-commit",
+  "created_at": "2026-10-31T05:41:09.239240649Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "save_step_count": 1,
+  "files_touched": [
+    "README.md",
+    "backend/alembic/env.py",
+    "backend/alembic/versions/0001_initial_schema.py",
+    "backend/app/models/__init__.py",
+    "backend/app/models/base.py",
+    "backend/app/models/catalog.py",
+    "backend/app/models/content.py",
+    "backend/app/models/enums.py",
+    "backend/app/models/offers.py",
+    "backend/app/models/orders.py",
+    "backend/app/models/people.py",
+    "backend/app/models/types.py",
+    "backend/tests/__init__.py",
+    "backend/tests/conftest.py",
+    "backend/tests/test_models.py",
+    "docs/database.md",
+    "docs/phases.md",
+    "docs/setup.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "79d90eb57f5c",
+  "checkpoint_transcript_start": 244,
+  "transcript_lines_at_start": 244,
+  "compact_transcript_start": 33,
+  "token_usage": {
+    "input_tokens": 30,
+    "cache_creation_tokens": 29829,
+    "cache_read_tokens": 1207306,
+    "output_tokens": 26083,
+    "api_call_count": 14
+  },
+  "redaction": {
+    "replacements": 2,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 2,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 7
+  }
+}
