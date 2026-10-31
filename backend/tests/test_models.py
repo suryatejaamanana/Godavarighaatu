@@ -67,7 +67,7 @@ def make_order(db, number="GG-0001") -> Order:
 
 def test_metadata_has_expected_tables_and_no_cart_tables():
     tables = set(Base.metadata.tables)
-    assert len(tables) == 19
+    assert len(tables) == 20
     assert "carts" not in tables and "cart_items" not in tables  # decision D1
 
 

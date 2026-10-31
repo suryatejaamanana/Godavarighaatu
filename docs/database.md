@@ -49,3 +49,6 @@ Choices made while implementing:
 - `reviews.product_id` is nullable so general (homepage) testimonials are possible.
 - `combo_offer_items` holds either a product or a category (exactly one), covering fixed bundles and "any N" combos.
 - No separate site-wide `offers` table yet. The poster's "10% off all pickles" will be added in Phase 10 (new migration).
+- `admin_sessions` (migration 0002, Phase 5): one row per admin login (`admin_id`, hash of the current refresh token's
+  jti, `expires_at`, `revoked_at`, `last_used_at`, `user_agent`). Total tables: 20. Expired sessions are never
+  accepted; a periodic cleanup job is not implemented yet.

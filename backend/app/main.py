@@ -4,8 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.router import api_router
 from app.core.config import get_settings
 from app.core.errors import register_error_handlers
+from app.core.ratelimit import limiter
 
 settings = get_settings()
+settings.validate_for_runtime()  # refuses to start with insecure settings outside development
 
 app = FastAPI(title="Godavari Ghaatu API")
 app.add_middleware(
@@ -15,5 +17,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.state.limiter = limiter
 register_error_handlers(app)
 app.include_router(api_router)

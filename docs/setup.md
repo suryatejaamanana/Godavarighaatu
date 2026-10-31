@@ -5,7 +5,7 @@ Requirements: Node 22+, [uv](https://docs.astral.sh/uv/) (installs Python 3.13 a
 ## Backend
 ```
 cd backend
-cp .env.example .env        # fill in Supabase values later (not needed for health check / tests)
+cp .env.example .env        # set JWT_SECRET (see below); Supabase values later
 uv sync
 uv run pytest               # tests
 uv run ruff check .         # lint
@@ -39,3 +39,22 @@ uv run alembic downgrade base    # roll back
 TEST_DATABASE_URL=$DATABASE_URL uv run pytest   # DB tests; WARNING: drops and recreates the public schema
 ```
 Without `TEST_DATABASE_URL`, the PostgreSQL tests are skipped. Use a throwaway database for tests.
+
+## Admin login setup
+```
+cd backend
+python3 -c "import secrets; print(secrets.token_urlsafe(48))"   # put the result in .env as JWT_SECRET
+uv run alembic upgrade head
+uv run python -m app.cli create-admin you@example.com --name "Your Name"   # prompts for a password (min 10 chars)
+uv run python -m app.cli set-password you@example.com                       # reset; revokes all sessions
+```
+The first admin is created with the CLI (role `super_admin` by default); further admins are created in the API by a
+super_admin. Try it with curl (note the `Origin` header and cookie jar):
+```
+curl -c jar -H "Origin: http://localhost:3000" -H "Content-Type: application/json" \
+     -d '{"email":"you@example.com","password":"..."}' localhost:8000/api/v1/admin/auth/login
+curl -b jar localhost:8000/api/v1/admin/auth/me
+```
+Production needs `APP_ENV=production`, `COOKIE_SECURE=true`, a 32+ character `JWT_SECRET` and explicit
+`CORS_ORIGINS`; the app refuses to start otherwise. If the frontend and API are on different registrable domains
+(not just different subdomains), `COOKIE_SAMESITE=none` is required; decide this at deployment (Phase 13).

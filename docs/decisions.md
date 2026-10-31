@@ -15,3 +15,6 @@ Approved by the project owner at the end of Phase 1.
 | D9 | No payment gateway or shipping provider integration. | `integrations/` defines interfaces with manual implementations only. Payment status starts Pending, never auto-Paid. |
 | D10 | Target Python 3.12/3.13 for the backend (dev machine has 3.14). | Avoids library compatibility problems. Confirmed 3.13 by owner. |
 | D11 | Product and banner fields are bilingual English/Telugu. | Confirmed by owner at start of Phase 2. |
+| D12 | Admin auth: JWT access (15 min) + rotating refresh (7 days) in httpOnly cookies, backed by an `admin_sessions` table. | Owner requested JWT access/refresh tokens. Server-side sessions give real logout and replay detection. Tokens are not returned in JSON. |
+| D13 | Roles: staff = read + stock; manager = catalog writes; super_admin = also manages admins. | Proposed by the assistant in Phase 5; adjust if the business wants different permissions. |
+| D14 | First admin is created via CLI (`python -m app.cli create-admin`), never via a public endpoint or seed password. | |

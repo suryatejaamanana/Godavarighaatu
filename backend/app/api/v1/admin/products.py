@@ -3,7 +3,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query, Response, status
 
-from app.api.deps import require_admin
+from app.api.deps import require_manager, require_staff
 from app.core.db import DB
 from app.models.enums import ProductStatus
 from app.repositories.products import ProductSort
@@ -21,7 +21,9 @@ from app.schemas.product import (
 )
 from app.services import products as service
 
-router = APIRouter(tags=["admin: products"], dependencies=[Depends(require_admin)])
+MANAGER = [Depends(require_manager)]  # catalog writes; staff may read and manage stock
+
+router = APIRouter(tags=["admin: products"], dependencies=[Depends(require_staff)])
 
 
 # ---------- products ----------
@@ -46,7 +48,12 @@ def list_products(
     )
 
 
-@router.post("/products", response_model=ProductOut, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/products",
+    dependencies=MANAGER,
+    response_model=ProductOut,
+    status_code=status.HTTP_201_CREATED,
+)
 def create_product(data: ProductCreate, db: DB):
     return service.create_product(db, data)
 
@@ -56,17 +63,17 @@ def get_product(product_id: uuid.UUID, db: DB):
     return service.get_product(db, product_id)
 
 
-@router.patch("/products/{product_id}", response_model=ProductOut)
+@router.patch("/products/{product_id}", dependencies=MANAGER, response_model=ProductOut)
 def update_product(product_id: uuid.UUID, data: ProductUpdate, db: DB):
     return service.update_product(db, product_id, data)
 
 
-@router.post("/products/{product_id}/archive", response_model=ProductOut)
+@router.post("/products/{product_id}/archive", dependencies=MANAGER, response_model=ProductOut)
 def archive_product(product_id: uuid.UUID, db: DB):
     return service.set_status(db, product_id, ProductStatus.ARCHIVED)
 
 
-@router.post("/products/{product_id}/restore", response_model=ProductOut)
+@router.post("/products/{product_id}/restore", dependencies=MANAGER, response_model=ProductOut)
 def restore_product(product_id: uuid.UUID, db: DB):
     """Un-archive into 'inactive'; activate explicitly via PATCH when ready to sell."""
     return service.set_status(db, product_id, ProductStatus.INACTIVE)
@@ -80,6 +87,7 @@ def list_variants(product_id: uuid.UUID, db: DB):
 
 @router.post(
     "/products/{product_id}/variants",
+    dependencies=MANAGER,
     response_model=VariantOut,
     status_code=status.HTTP_201_CREATED,
 )
@@ -92,12 +100,14 @@ def get_variant(variant_id: uuid.UUID, db: DB):
     return service.get_variant(db, variant_id)
 
 
-@router.patch("/variants/{variant_id}", response_model=VariantOut)
+@router.patch("/variants/{variant_id}", dependencies=MANAGER, response_model=VariantOut)
 def update_variant(variant_id: uuid.UUID, data: VariantUpdate, db: DB):
     return service.update_variant(db, variant_id, data)
 
 
-@router.delete("/variants/{variant_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete(
+    "/variants/{variant_id}", dependencies=MANAGER, status_code=status.HTTP_204_NO_CONTENT
+)
 def delete_variant(variant_id: uuid.UUID, db: DB):
     service.delete_variant(db, variant_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)

@@ -3,11 +3,12 @@ from app.models.catalog import Category, Inventory, Product, ProductImage, Produ
 from app.models.content import Banner, WebsiteSetting
 from app.models.offers import ComboOffer, ComboOfferItem, Coupon
 from app.models.orders import Order, OrderItem, OrderStatusHistory, Payment, Shipment
-from app.models.people import Address, Admin, Customer
+from app.models.people import Address, Admin, AdminSession, Customer
 
 __all__ = [
     "Address",
     "Admin",
+    "AdminSession",
     "Banner",
     "Base",
     "Category",

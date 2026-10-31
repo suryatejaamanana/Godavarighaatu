@@ -52,3 +52,24 @@ class Address(UUIDPrimaryKeyMixin, TimestampMixin, Base):
     is_default: Mapped[bool] = mapped_column(Boolean, default=False, server_default=text("false"))
 
     customer: Mapped[Customer] = relationship(back_populates="addresses")
+
+
+class AdminSession(UUIDPrimaryKeyMixin, TimestampMixin, Base):
+    """One login. Its id is the `sid` claim in both tokens; revoking the row logs the admin out.
+
+    Only a hash of the current refresh token's jti is stored. Presenting any older refresh
+    token (replay after rotation) revokes the whole session.
+    """
+
+    __tablename__ = "admin_sessions"
+
+    admin_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("admins.id", ondelete="CASCADE"), index=True
+    )
+    refresh_jti_hash: Mapped[str] = mapped_column(String(64), default="", server_default="")
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    last_used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    user_agent: Mapped[str | None] = mapped_column(String(255))
+
+    admin: Mapped[Admin] = relationship()

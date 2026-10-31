@@ -2,10 +2,16 @@ import uuid
 
 import pytest
 
-from app.core.config import get_settings
+from app.models.enums import AdminRole
 
 A = "/api/v1/admin"
 P = "/api/v1"
+
+
+@pytest.fixture
+def client(login_as):
+    """The catalog API is exercised as a logged-in manager (role rules are tested in test_rbac.py)."""
+    return login_as(AdminRole.MANAGER)[0]
 
 
 @pytest.fixture
@@ -24,13 +30,6 @@ def make_product(client, category, name="Gongura Chicken Pickle", **extra):
 
 def variant(weight="500g", price="350.00", **extra):
     return {"weight": weight, "price": price, **extra}
-
-
-# ---------------- admin gate ----------------
-def test_admin_api_refused_outside_development(client, monkeypatch):
-    monkeypatch.setattr(get_settings(), "app_env", "production")
-    assert client.get(f"{A}/categories").status_code == 503
-    assert client.get(f"{P}/categories").status_code == 200  # public API unaffected
 
 
 # ---------------- categories ----------------
