@@ -1,0 +1,64 @@
+<pasted_content id="07d6">
+Before we continue, tell me the current status of our project.
+
+Check the project files, documentation, Git status and recent development changes.
+
+Tell me:
+1. Which phases are completed?
+2. Which phase are we currently working on?
+3. What features are implemented and working?
+4. What features are still pending?
+5. Are there any unfinished tasks or errors?
+6. What is the current test status?
+
+Don't modify any files, don't run implementations, and don't commit anything. I only want a project status report.
+</pasted_content id="07d6">
+
+---
+
+<pasted_content id="07d6">
+Thanks for the status report. Before we approve Phase 7, let's verify the current implementation.
+
+Please run the backend tests, frontend unit tests, lint, TypeScript checks, production build and storefront/admin Playwright tests.
+
+Check that the customer storefront and existing admin dashboard both work correctly. Fix any genuine issues you find.
+
+Don't add new features, don't modify unrelated code and don't commit anything.
+
+Once finished, share the actual test results and any remaining issues. Wait for my approval.
+</pasted_content id="07d6">
+
+---
+
+<pasted_content id="07d6">
+I want to see how the website looks in my browser.
+
+Please start the backend and frontend development servers using the existing project setup. Make sure the database is available and use the existing development seed data if needed.
+
+Once everything is running, share the local browser URL and tell me how to access both the customer website and admin dashboard.
+
+Don't change any features or code just to start the servers. Don't commit or push anything.
+</pasted_content id="07d6">
+
+---
+
+[Image #4] [Image #5] [Image #6] [Image #7]
+
+---
+
+<pasted_content id="07d6">
+The PostgreSQL setup is complete. I successfully created the `ghaatu` role and `ghaatu_test` database, enabled `pg_trgm`, and verified the connection.
+
+Please continue Phase 7 verification now:
+1. Configure the local environment.
+2. Run migrations and all backend tests.
+3. Seed the development products and create a test admin.
+4. Start the backend and frontend servers.
+5. Run the production build and Playwright tests.
+
+Fix any genuine Phase 7 issues you find.
+
+Finally, give me the browser URLs so I can inspect the website.
+
+Don't commit, push, or modify unrelated code. Report the results and wait for my approval.
+</pasted_content id="07d6">
