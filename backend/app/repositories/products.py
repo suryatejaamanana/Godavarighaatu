@@ -33,6 +33,7 @@ def _filtered(
     category_id: uuid.UUID | None,
     statuses: list[ProductStatus],
     public_only: bool,
+    flags: dict[str, bool],
 ) -> Select:
     stmt = select(Product).where(Product.status.in_(statuses))
     if public_only:
@@ -44,6 +45,9 @@ def _filtered(
         stmt = stmt.where(Product.category.has(Category.slug == category_slug))
     if category_id:
         stmt = stmt.where(Product.category_id == category_id)
+    for column, wanted in flags.items():
+        if wanted:
+            stmt = stmt.where(getattr(Product, column))
     return stmt
 
 
@@ -55,6 +59,7 @@ def search(
     category_id: uuid.UUID | None = None,
     statuses: list[ProductStatus],
     public_only: bool = False,
+    flags: dict[str, bool] | None = None,
     sort: ProductSort = ProductSort.NEWEST,
     offset: int = 0,
     limit: int = 12,
@@ -65,6 +70,7 @@ def search(
         category_id=category_id,
         statuses=statuses,
         public_only=public_only,
+        flags=flags or {},
     )
     total = db.scalar(select(func.count()).select_from(stmt.subquery())) or 0
 

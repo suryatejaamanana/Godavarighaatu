@@ -323,3 +323,39 @@ def test_inactive_category_hides_products_from_storefront(client, category):
     client.patch(f"{A}/categories/{category['id']}", json={"is_active": False})
     assert client.get(f"{P}/products").json()["total"] == 0
     assert client.get(f"{P}/products/{p['slug']}").status_code == 404
+
+
+# ---------------- storefront: flag filters and public settings ----------------
+def test_storefront_filters_by_featured_best_seller_new_arrival(client, category):
+    make_product(client, category, "Plain Pickle")
+    make_product(client, category, "Star Pickle", is_featured=True)
+    make_product(client, category, "Top Pickle", is_best_seller=True, is_featured=True)
+    make_product(client, category, "Fresh Pickle", is_new_arrival=True)
+    make_product(client, category, "Hidden Star", is_featured=True, status="inactive")
+
+    def names(**params):
+        return sorted(i["name"] for i in client.get(f"{P}/products", params=params).json()["items"])
+
+    assert names(featured="true") == ["Star Pickle", "Top Pickle"]  # inactive never listed
+    assert names(best_seller="true") == ["Top Pickle"]
+    assert names(new_arrival="true") == ["Fresh Pickle"]
+    assert names(featured="true", best_seller="true") == ["Top Pickle"]  # filters combine (AND)
+    assert len(names()) == 4
+    assert client.get(f"{P}/products", params={"featured": "maybe"}).status_code == 422
+
+
+def test_public_site_settings_expose_only_whitelisted_keys(client, db):
+    from app.models import WebsiteSetting
+
+    assert client.get(f"{P}/site-settings").json() == {}
+    db.add_all(
+        [
+            WebsiteSetting(key="brand_name", value="Godavari Ghaatu"),
+            WebsiteSetting(key="announcement", value="Free tasting spoon!"),
+            WebsiteSetting(key="payment_secret", value="never-public"),
+        ]
+    )
+    db.flush()
+    r = client.get(f"{P}/site-settings")
+    assert r.status_code == 200
+    assert r.json() == {"brand_name": "Godavari Ghaatu", "announcement": "Free tasting spoon!"}

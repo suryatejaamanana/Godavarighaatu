@@ -10,8 +10,8 @@ No phase starts without the owner's approval.
 | 3 | DB models, relationships, Alembic migrations | Complete |
 | 4 | Backend APIs and business logic | Catalog + inventory APIs done (orders/coupons/combos APIs come in Phases 9-10) |
 | 5 | Admin authentication and authorization | Complete |
-| 6 | Admin dashboard and product management (incl. image upload) | Complete, awaiting owner review (orders, offers, customers, content and user management screens come with their phases) |
-| 7 | Customer homepage and product browsing | Not started |
+| 6 | Admin dashboard and product management (incl. image upload) | Complete |
+| 7 | Customer homepage and product browsing | Complete, awaiting owner review (homepage, navigation, categories, listing, product detail, SEO; cart is Phase 8) |
 | 8 | Product details and cart | Not started |
 | 9 | Checkout and order management | Not started |
 | 10 | Offers, coupons, combos (incl. site-wide percentage offer) | Not started |

@@ -25,13 +25,16 @@ ALL_STATUSES = list(ProductStatus)
 
 
 # ---------- products ----------
-def list_public(db: Session, *, q, category_slug, sort: ProductSort, page: int, page_size: int):
+def list_public(
+    db: Session, *, q, category_slug, flags, sort: ProductSort, page: int, page_size: int
+):
     return repo.search(
         db,
         q=q,
         category_slug=category_slug,
         statuses=[ProductStatus.ACTIVE],
         public_only=True,
+        flags=flags,
         sort=sort,
         offset=(page - 1) * page_size,
         limit=page_size,

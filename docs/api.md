@@ -1,4 +1,4 @@
-# API (Phases 4-6: catalog, inventory, admin auth, images)
+# API (Phases 4-7: catalog, inventory, admin auth, images, storefront)
 
 Base path `/api/v1`. Interactive docs: `/docs` when the server runs. Errors are `{"detail": "..."}`
 (404 not found, 409 conflict, 422 validation/business rule, 503 unavailable).
@@ -48,7 +48,8 @@ Errors: 401 not authenticated or invalid token, 403 wrong role or origin, 429 ra
 | Method | Path | Notes |
 |---|---|---|
 | GET | `/categories` | active categories |
-| GET | `/products` | `q`, `category` (slug), `sort` (newest, popular, price_asc, price_desc), `page`, `page_size` (max 60). Active products in active categories only |
+| GET | `/products` | `q`, `category` (slug), `featured`, `best_seller`, `new_arrival` (booleans, combinable), `sort` (newest, popular, price_asc, price_desc), `page`, `page_size` (max 60). Active products in active categories only |
+| GET | `/site-settings` | public brand text from `website_settings`; only whitelisted keys (`brand_name`, `brand_name_te`, `brand_tagline`, `brand_label`, `announcement`, `announcement_te`, `hero_headline`, `hero_headline_te`, `about_text`, `about_text_te`). Returns `{}` until set |
 | GET | `/products/{slug}` | active variants only; availability (`in_stock`, `available_quantity`), no raw stock or status |
 | GET | `/products/{slug}/related` | up to 4 from the same category |
 

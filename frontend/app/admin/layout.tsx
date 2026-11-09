@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AdminProviders } from "@/components/admin/providers";
 
 export const metadata: Metadata = {
-  title: "Admin | Godavari Ghaatu",
+  title: "Admin",
   robots: { index: false, follow: false },
 };
 

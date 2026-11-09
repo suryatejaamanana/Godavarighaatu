@@ -16,12 +16,25 @@ def list_products(
     db: DB,
     q: Annotated[str | None, Query(max_length=100)] = None,
     category: Annotated[str | None, Query(description="Category slug")] = None,
+    featured: bool = False,
+    best_seller: bool = False,
+    new_arrival: bool = False,
     sort: ProductSort = ProductSort.NEWEST,
     page: Annotated[int, Query(ge=1)] = 1,
     page_size: Annotated[int, Query(ge=1, le=60)] = 12,
 ):
     products, total = service.list_public(
-        db, q=q, category_slug=category, sort=sort, page=page, page_size=page_size
+        db,
+        q=q,
+        category_slug=category,
+        flags={
+            "is_featured": featured,
+            "is_best_seller": best_seller,
+            "is_new_arrival": new_arrival,
+        },
+        sort=sort,
+        page=page,
+        page_size=page_size,
     )
     return Page(
         items=[ProductPublic.from_product(p) for p in products],

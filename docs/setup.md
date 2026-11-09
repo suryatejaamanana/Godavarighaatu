@@ -91,3 +91,27 @@ npx playwright install chromium                     # once
 npm run test:e2e                                    # starts the frontend dev server itself
 ```
 The suite leaves its test products in that database; it uses unique names, so it can be re-run.
+
+## Storefront
+```
+cd backend
+# development sample data (refuses to run outside APP_ENV=development or on a non-empty catalogue)
+uv run python -m scripts.seed_dev_catalog          # 9 categories, 15 clearly marked "Sample" products
+cd ../frontend
+cp .env.example .env.local   # NEXT_PUBLIC_API_BASE_URL, NEXT_PUBLIC_SITE_URL
+npm run dev                  # http://localhost:3000
+```
+The storefront reads the public API only. **The API must be running when you run `npm run build`**, because pages are
+generated from live data (no data is baked into the code). Data is cached for a minute, so admin changes show up
+within about a minute. `NEXT_PUBLIC_SITE_URL` must be the real public address in production (used for canonical URLs,
+sitemap and Open Graph).
+
+Real photographs: upload them in the admin (Products, Photos tab). Until then, products show a placeholder.
+Brand text: until the Phase 11 editor exists, values can be set in the `website_settings` table
+(keys listed in `docs/api.md`, GET `/site-settings`); otherwise the built-in defaults are used.
+
+Storefront browser tests (against the sample data, using a production build):
+```
+cd frontend && npm run build && npm run start &    # in another terminal
+npx playwright test e2e/shop.spec.ts e2e/shop-mobile.spec.ts
+```
